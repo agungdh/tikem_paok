@@ -33,11 +33,6 @@ class Fakultas extends CI_Controller {
 	function aksi_tambah() {
 		foreach ($this->input->post('data') as $key => $value) {
 			switch ($key) {
-				case 'tanggal':
-					$date=date_create($value);
-					$data[$key] = date_format($date,"Y-m-d");
-					break;
-				
 				default:
 					$data[$key] = $value;
 					break;
@@ -52,11 +47,6 @@ class Fakultas extends CI_Controller {
 	function aksi_ubah() {
 		foreach ($this->input->post('data') as $key => $value) {
 			switch ($key) {
-				case 'tanggal':
-					$date=date_create($value);
-					$data[$key] = date_format($date,"Y-m-d");
-					break;
-				
 				default:
 					$data[$key] = $value;
 					break;
