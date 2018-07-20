@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 20, 2018 at 09:05 PM
+-- Generation Time: Jul 20, 2018 at 10:36 PM
 -- Server version: 10.1.29-MariaDB-6
 -- PHP Version: 5.6.36
 
@@ -38,7 +38,7 @@ CREATE TABLE `config` (
 --
 
 INSERT INTO `config` (`judul_aplikasi`, `judul_menu`) VALUES
-('Aplikasi Pengumpulan Data Pengajuan Akreditasi', 'APDPA');
+('Tikem Paok', 'KEMPLO');
 
 -- --------------------------------------------------------
 
@@ -69,6 +69,19 @@ CREATE TABLE `fakultas` (
 INSERT INTO `fakultas` (`id`, `nama`) VALUES
 (4, 'Fakultas Teknik Informatika'),
 (5, 'Fakultas Ekonomi');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `individu`
+--
+
+CREATE TABLE `individu` (
+  `id` int(11) NOT NULL,
+  `kegiatan_id` int(11) NOT NULL,
+  `prestasi` varchar(191) DEFAULT NULL,
+  `mahasiswa_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -127,16 +140,17 @@ INSERT INTO `kegiatan` (`id`, `kegiatan`, `tanggal_mulai`, `tanggal_selesai`, `l
 CREATE TABLE `mahasiswa` (
   `id` int(11) NOT NULL,
   `nim` varchar(191) NOT NULL,
-  `nama` varchar(191) NOT NULL
+  `nama` varchar(191) NOT NULL,
+  `prodi_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `mahasiswa`
 --
 
-INSERT INTO `mahasiswa` (`id`, `nim`, `nama`) VALUES
-(2, '15753003', 'Agung DH'),
-(3, '15753016', 'Buntang Paok tenan');
+INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `prodi_id`) VALUES
+(2, '15753003', 'Agung DH', 13),
+(3, '15753016', 'Buntang Paok tenan', 14);
 
 -- --------------------------------------------------------
 
@@ -156,19 +170,6 @@ CREATE TABLE `pembina` (
 
 INSERT INTO `pembina` (`id`, `nip`, `nama`) VALUES
 (2, '00112233', 'Buntang Paok tenan tiga');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pribadi`
---
-
-CREATE TABLE `pribadi` (
-  `id` int(11) NOT NULL,
-  `kegiatan_id` int(11) NOT NULL,
-  `prestasi` varchar(191) DEFAULT NULL,
-  `mahasiswa_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -251,6 +252,14 @@ ALTER TABLE `fakultas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `individu`
+--
+ALTER TABLE `individu`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `kegiatan_id` (`kegiatan_id`),
+  ADD KEY `mahasiswa_id` (`mahasiswa_id`);
+
+--
 -- Indexes for table `kategori`
 --
 ALTER TABLE `kategori`
@@ -269,7 +278,8 @@ ALTER TABLE `kegiatan`
 --
 ALTER TABLE `mahasiswa`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nim` (`nim`);
+  ADD UNIQUE KEY `nim` (`nim`),
+  ADD KEY `prodi_id` (`prodi_id`);
 
 --
 -- Indexes for table `pembina`
@@ -277,14 +287,6 @@ ALTER TABLE `mahasiswa`
 ALTER TABLE `pembina`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nip` (`nip`);
-
---
--- Indexes for table `pribadi`
---
-ALTER TABLE `pribadi`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `kegiatan_id` (`kegiatan_id`),
-  ADD KEY `mahasiswa_id` (`mahasiswa_id`);
 
 --
 -- Indexes for table `prodi`
@@ -318,6 +320,12 @@ ALTER TABLE `fakultas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `individu`
+--
+ALTER TABLE `individu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
@@ -333,19 +341,13 @@ ALTER TABLE `kegiatan`
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pembina`
 --
 ALTER TABLE `pembina`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `pribadi`
---
-ALTER TABLE `pribadi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `prodi`
@@ -377,6 +379,13 @@ ALTER TABLE `detil_tim`
   ADD CONSTRAINT `detil_tim_ibfk_2` FOREIGN KEY (`tim_id`) REFERENCES `tim` (`id`);
 
 --
+-- Constraints for table `individu`
+--
+ALTER TABLE `individu`
+  ADD CONSTRAINT `individu_ibfk_1` FOREIGN KEY (`kegiatan_id`) REFERENCES `kegiatan` (`id`),
+  ADD CONSTRAINT `individu_ibfk_2` FOREIGN KEY (`mahasiswa_id`) REFERENCES `mahasiswa` (`id`);
+
+--
 -- Constraints for table `kegiatan`
 --
 ALTER TABLE `kegiatan`
@@ -384,11 +393,10 @@ ALTER TABLE `kegiatan`
   ADD CONSTRAINT `kegiatan_ibfk_2` FOREIGN KEY (`pembina_id`) REFERENCES `pembina` (`id`);
 
 --
--- Constraints for table `pribadi`
+-- Constraints for table `mahasiswa`
 --
-ALTER TABLE `pribadi`
-  ADD CONSTRAINT `pribadi_ibfk_1` FOREIGN KEY (`kegiatan_id`) REFERENCES `kegiatan` (`id`),
-  ADD CONSTRAINT `pribadi_ibfk_2` FOREIGN KEY (`mahasiswa_id`) REFERENCES `mahasiswa` (`id`);
+ALTER TABLE `mahasiswa`
+  ADD CONSTRAINT `mahasiswa_ibfk_1` FOREIGN KEY (`prodi_id`) REFERENCES `prodi` (`id`);
 
 --
 -- Constraints for table `prodi`
