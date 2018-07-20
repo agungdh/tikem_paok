@@ -20,6 +20,8 @@
             <tr>
               <th>NIM</th>
               <th>Nama</th>
+              <th>Prodi</th>
+              <th>Fakultas</th>
               <th>Proses</th>
             </tr>
           </thead>
@@ -30,6 +32,8 @@
               <tr>
                 <td><?php echo $item->nim; ?></td>
                 <td><?php echo $item->nama; ?></td>
+                <td><?php echo $this->db->get_where('prodi', ['id' => $item->prodi_id])->row()->nama; ?></td>
+                <td><?php echo $this->db->get_where('fakultas', ['id' => $this->db->get_where('prodi', ['id' => $item->prodi_id])->row()->fakultas_id])->row()->nama; ?></td>
                 <td>
                   <div class="btn-group">
                   <a class="btn btn-primary" href="<?php echo base_url('mahasiswa/ubah/' . $item->id); ?>" data-toggle="tooltip" title="Ubah"><i class="fa fa-edit"></i></a>
