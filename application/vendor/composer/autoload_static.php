@@ -7,6 +7,11 @@ namespace Composer\Autoload;
 class ComposerStaticInitbca262e1e93c4f2ca194525e8ba41a01
 {
     public static $prefixLengthsPsr4 = array (
+        'P' => 
+        array (
+            'Psr\\SimpleCache\\' => 16,
+            'PhpOffice\\PhpSpreadsheet\\' => 25,
+        ),
         'G' => 
         array (
             'Gumlet\\' => 7,
@@ -14,6 +19,14 @@ class ComposerStaticInitbca262e1e93c4f2ca194525e8ba41a01
     );
 
     public static $prefixDirsPsr4 = array (
+        'Psr\\SimpleCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
+        ),
+        'PhpOffice\\PhpSpreadsheet\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
+        ),
         'Gumlet\\' => 
         array (
             0 => __DIR__ . '/..' . '/gumlet/php-image-resize/lib',
