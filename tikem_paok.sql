@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 20, 2018 at 07:27 PM
+-- Generation Time: Jul 20, 2018 at 09:05 PM
 -- Server version: 10.1.29-MariaDB-6
 -- PHP Version: 5.6.36
 
@@ -81,6 +81,15 @@ CREATE TABLE `kategori` (
   `kategori` varchar(191) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `kategori`
+--
+
+INSERT INTO `kategori` (`id`, `kategori`) VALUES
+(1, 'Sains'),
+(3, 'Olahraga'),
+(4, 'Akademik');
+
 -- --------------------------------------------------------
 
 --
@@ -98,8 +107,16 @@ CREATE TABLE `kegiatan` (
   `tingkat` enum('l','n','i') NOT NULL,
   `semester` enum('e','o') NOT NULL,
   `pembina_id` int(11) NOT NULL,
-  `keanggotaan` enum('p','t') NOT NULL
+  `keanggotaan` enum('i','t') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kegiatan`
+--
+
+INSERT INTO `kegiatan` (`id`, `kegiatan`, `tanggal_mulai`, `tanggal_selesai`, `lokasi`, `kategori_id`, `tahun_ajar`, `tingkat`, `semester`, `pembina_id`, `keanggotaan`) VALUES
+(4, '12', '2018-07-04', '2018-07-05', '23', 4, '20092010', 'l', 'o', 2, 't'),
+(5, '1', '2018-07-26', '2018-07-17', '23', 1, '19071908', 'i', 'o', 2, 'i');
 
 -- --------------------------------------------------------
 
@@ -113,6 +130,14 @@ CREATE TABLE `mahasiswa` (
   `nama` varchar(191) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `mahasiswa`
+--
+
+INSERT INTO `mahasiswa` (`id`, `nim`, `nama`) VALUES
+(2, '15753003', 'Agung DH'),
+(3, '15753016', 'Buntang Paok tenan');
+
 -- --------------------------------------------------------
 
 --
@@ -124,6 +149,13 @@ CREATE TABLE `pembina` (
   `nip` varchar(191) NOT NULL,
   `nama` varchar(191) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pembina`
+--
+
+INSERT INTO `pembina` (`id`, `nip`, `nama`) VALUES
+(2, '00112233', 'Buntang Paok tenan tiga');
 
 -- --------------------------------------------------------
 
@@ -289,25 +321,25 @@ ALTER TABLE `fakultas`
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `kegiatan`
 --
 ALTER TABLE `kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pembina`
 --
 ALTER TABLE `pembina`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pribadi`
@@ -319,7 +351,7 @@ ALTER TABLE `pribadi`
 -- AUTO_INCREMENT for table `prodi`
 --
 ALTER TABLE `prodi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `tim`
