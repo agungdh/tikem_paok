@@ -1,6 +1,9 @@
 <script type="text/javascript">
 $(function() {
-    $(".datatable").dataTable();
+    $(".datatable").dataTable({
+        "scrollX": true,
+        "autoWidth": false,
+    });
 });
 
 function hapus(id) {
