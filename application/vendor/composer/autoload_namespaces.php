@@ -9,4 +9,6 @@ return array(
     'Svg\\' => array($vendorDir . '/phenx/php-svg-lib/src'),
     'Skyzyx\\Components\\Mimetypes' => array($vendorDir . '/skyzyx/mimetypes/src'),
     'Sabberworm\\CSS' => array($vendorDir . '/sabberworm/php-css-parser/lib'),
+    'Gregwar\\Image' => array($vendorDir . '/gregwar/image'),
+    'Gregwar\\Cache' => array($vendorDir . '/gregwar/cache'),
 );

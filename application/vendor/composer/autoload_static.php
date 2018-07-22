@@ -73,6 +73,17 @@ class ComposerStaticInitbca262e1e93c4f2ca194525e8ba41a01
                 0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/lib',
             ),
         ),
+        'G' => 
+        array (
+            'Gregwar\\Image' => 
+            array (
+                0 => __DIR__ . '/..' . '/gregwar/image',
+            ),
+            'Gregwar\\Cache' => 
+            array (
+                0 => __DIR__ . '/..' . '/gregwar/cache',
+            ),
+        ),
     );
 
     public static $classMap = array (
