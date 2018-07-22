@@ -17,8 +17,8 @@ $now = date('YmdHis');
 
     <title><?php echo $this->db->get('config')->row()->judul_aplikasi; ?></title>
 
-    <link rel="stylesheet" type="text/css" href="http://localhost/php56/tikem_paok/assets/css/main.css">
-    <link rel="stylesheet" type="text/css" href="http://localhost/php56/tikem_paok/assets/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>assets/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     
     <?php
@@ -204,10 +204,10 @@ $now = date('YmdHis');
       </div>
     </header>
 
-        <script src="http://localhost/php56/tikem_paok/assets/js/jquery-3.2.1.min.js"></script>
-    <script src="http://localhost/php56/tikem_paok/assets/js/popper.min.js"></script>
-    <script src="http://localhost/php56/tikem_paok/assets/js/bootstrap.min.js"></script>
-    <script src="http://localhost/php56/tikem_paok/assets/js/main.js"></script>
+        <script src="<?php echo base_url(''); ?>assets/js/jquery-3.2.1.min.js"></script>
+    <script src="<?php echo base_url(''); ?>assets/js/popper.min.js"></script>
+    <script src="<?php echo base_url(''); ?>assets/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url(''); ?>assets/js/main.js"></script>
     
     <script type="text/javascript" src="<?php echo base_url('assets/'); ?>js/plugins/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/'); ?>js/plugins/bootstrap-notify.min.js"></script>
