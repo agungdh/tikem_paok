@@ -9,7 +9,7 @@
 </div>
 <div class="row">
   <div class="col-md-12 col-lg-4">
-    <div class="widget-small primary coloured-icon"><i class="icon fa fa-dollar fa-3x"></i>
+    <div class="widget-small primary coloured-icon"><i class="icon fa fa-users fa-3x"></i>
       <div class="info">
         <h4>Jumlah Kegiatan</h4>
         <p><b><?php echo $this->db->query('SELECT count(id) jumlah FROM kegiatan')->row()->jumlah; ?></b></p>
@@ -17,7 +17,7 @@
     </div>
   </div>
   <div class="col-md-12 col-lg-4">
-    <div class="widget-small info coloured-icon"><i class="icon fa fa-calendar-times-o fa-3x"></i>
+    <div class="widget-small info coloured-icon"><i class="icon fa fa-trophy fa-3x"></i>
       <div class="info">
         <h4>Jumlah Prestasi</h4>
         <?php
