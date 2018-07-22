@@ -18,10 +18,12 @@ class Welcome extends CI_Controller {
 													AND p.fakultas_id = f.id
 													ORDER BY k.id")->result();
 
-				$data_item = [];
+			$data_item = [];
+			$kegiatanId = null;
 			foreach ($kegiatan_individu as $item) {
-			 	if (array_key_exists('kegiatan', $data_item)) {
-			 		if ($data_item['kegiatan'] != $item->kegiatan) {
+			 	if ($kegiatanId != null) {
+			 		if ($kegiatanId != $item->kegiatan_id) {
+			 			$kegiatanId = $item->kegiatan_id;
 			 			$data_item['kegiatan'] = $item->kegiatan;
 				 		$data_item['tanggal_mulai'] = $this->pustaka->tanggal_indo_string($item->tanggal_mulai);
 					 	$data_item['lokasi'] = $item->lokasi;
@@ -37,12 +39,14 @@ class Welcome extends CI_Controller {
 					 	}
 					 	$pembina = $this->db->get_where('pembina', ['id' => $item->pembina_id])->row();
 					 	$data_item['pembina'] = $pembina->nip . ' ' .$pembina->nama;
+				 		$data_item['prestasi'] = $data_item['prestasi'] = $item->prestasi == null ? '-' : $item->prestasi;
 				 		$data_item['keanggotaan'] = 'Individu';
 				 		$data_item['nim'] = $item->nim;
 				 		$data_item['nama'] = $item->mahasiswa;
 				 		$data_item['prodi'] = $item->prodi;
 				 		$data_item['fakultas'] = $item->fakultas;
 			 		} else {
+			 			$kegiatanId = $item->kegiatan_id;
 			 			$data_item['kegiatan'] = null;
 				 		$data_item['tanggal_mulai'] = null;
 					 	$data_item['lokasi'] = null;
@@ -51,6 +55,7 @@ class Welcome extends CI_Controller {
 					 	$data_item['semester'] = null;
 					 	$data_item['tingkat'] = null;
 					 	$data_item['pembina'] = null;
+				 		$data_item['prestasi'] = $data_item['prestasi'] = $item->prestasi == null ? '-' : $item->prestasi;
 				 		$data_item['keanggotaan'] = null;
 				 		$data_item['nim'] = $item->nim;
 				 		$data_item['nama'] = $item->mahasiswa;
@@ -59,6 +64,7 @@ class Welcome extends CI_Controller {
 			 		}
 		 			$data['tabel'][] = $data_item;
 			 	} else {
+			 		$kegiatanId = $item->kegiatan_id;
 			 		$data_item['kegiatan'] = $item->kegiatan;
 			 		$data_item['tanggal_mulai'] = $this->pustaka->tanggal_indo_string($item->tanggal_mulai);
 				 	$data_item['lokasi'] = $item->lokasi;
@@ -74,6 +80,7 @@ class Welcome extends CI_Controller {
 				 	}
 				 	$pembina = $this->db->get_where('pembina', ['id' => $item->pembina_id])->row();
 				 	$data_item['pembina'] = $pembina->nip . ' ' .$pembina->nama;
+			 		$data_item['prestasi'] = $data_item['prestasi'] = $item->prestasi == null ? '-' : $item->prestasi;
 			 		$data_item['keanggotaan'] = 'Individu';
 			 		$data_item['nim'] = $item->nim;
 			 		$data_item['nama'] = $item->mahasiswa;
@@ -84,37 +91,87 @@ class Welcome extends CI_Controller {
 			 	}
 			}
 
-			$kegiatan_tim = $this->db->query("SELECT *, t.id tim_id
-													FROM kegiatan k, tim t
-													WHERE t.kegiatan_id = k.id
-													ORDER BY k.id")->result();
+			$kegiatan_tim = $this->db->query("SELECT *, dt.id detil_tim_id, m.nama mahasiswa, p.nama prodi, f.nama fakultas
+											FROM kegiatan k, tim t, detil_tim dt, mahasiswa m, prodi p, fakultas f
+											WHERE dt.tim_id = t.id
+											AND t.kegiatan_id = k.id
+											AND dt.mahasiswa_id = m.id
+											AND m.prodi_id = p.id
+											AND p.fakultas_id = f.id
+											ORDER BY k.id, t.id")->result();
 
-			 // {
-			 // 	$data_item = [];
+			$data_item = [];
+			$kegiatanId = null;
+			foreach ($kegiatan_tim as $item) {
+			 	if ($kegiatanId != null) {
+			 		if ($kegiatanId != $item->kegiatan_id) {
+			 			$kegiatanId = $item->kegiatan_id;
+			 			$data_item['kegiatan'] = $item->kegiatan;
+				 		$data_item['tanggal_mulai'] = $this->pustaka->tanggal_indo_string($item->tanggal_mulai);
+					 	$data_item['lokasi'] = $item->lokasi;
+					 	$data_item['kategori'] = $this->db->get_where('kategori', ['id' => $item->kategori_id])->row()->kategori;
+					 	$data_item['tahun_ajar'] = substr($item->tahun_ajar, 0, 4) . '/' . substr($item->tahun_ajar, 4, 4);
+					 	$data_item['semester'] = $item->semester == 'e' ? 'Genap' : 'Gasal';
+					 	if ($item->tingkat == 'l') {
+					 		$data_item['tingkat'] = 'Lokal';
+					 	} elseif ($item->tingkat == 'n') {
+					 		$data_item['tingkat'] = 'Nasional';
+					 	} else {
+							$data_item['tingkat'] = 'Internasional';
+					 	}
+					 	$pembina = $this->db->get_where('pembina', ['id' => $item->pembina_id])->row();
+					 	$data_item['pembina'] = $pembina->nip . ' ' .$pembina->nama;
+				 		$data_item['prestasi'] = $data_item['prestasi'] = $item->prestasi == null ? '-' : $item->prestasi;
+				 		$data_item['keanggotaan'] = 'Tim (' . $item->tim . ')';
+				 		$data_item['nim'] = $item->nim;
+				 		$data_item['nama'] = $item->mahasiswa;
+				 		$data_item['prodi'] = $item->prodi;
+				 		$data_item['fakultas'] = $item->fakultas;
+			 		} else {
+			 			$kegiatanId = $item->kegiatan_id;
+			 			$data_item['kegiatan'] = null;
+				 		$data_item['tanggal_mulai'] = null;
+					 	$data_item['lokasi'] = null;
+					 	$data_item['kategori'] = null;
+					 	$data_item['tahun_ajar'] = null;
+					 	$data_item['semester'] = null;
+					 	$data_item['tingkat'] = null;
+					 	$data_item['pembina'] = null;
+				 		$data_item['prestasi'] = $data_item['prestasi'] = $item->prestasi == null ? '-' : $item->prestasi;
+				 		$data_item['keanggotaan'] = $data_item['keanggotaan'] = 'Tim (' . $item->tim . ')';
+				 		$data_item['nim'] = $item->nim;
+				 		$data_item['nama'] = $item->mahasiswa;
+				 		$data_item['prodi'] = $item->prodi;
+				 		$data_item['fakultas'] = $item->fakultas;
+			 		}
+		 			$data['tabel'][] = $data_item;
+			 	} else {
+		 			$kegiatanId = $item->kegiatan_id;
+			 		$data_item['kegiatan'] = $item->kegiatan;
+			 		$data_item['tanggal_mulai'] = $this->pustaka->tanggal_indo_string($item->tanggal_mulai);
+				 	$data_item['lokasi'] = $item->lokasi;
+				 	$data_item['kategori'] = $this->db->get_where('kategori', ['id' => $item->kategori_id])->row()->kategori;
+				 	$data_item['tahun_ajar'] = substr($item->tahun_ajar, 0, 4) . '/' . substr($item->tahun_ajar, 4, 4);
+				 	$data_item['semester'] = $item->semester == 'e' ? 'Genap' : 'Gasal';
+				 	if ($item->tingkat == 'l') {
+				 		$data_item['tingkat'] = 'Lokal';
+				 	} elseif ($item->tingkat == 'n') {
+				 		$data_item['tingkat'] = 'Nasional';
+				 	} else {
+						$data_item['tingkat'] = 'Internasional';
+				 	}
+				 	$pembina = $this->db->get_where('pembina', ['id' => $item->pembina_id])->row();
+				 	$data_item['pembina'] = $pembina->nip . ' ' .$pembina->nama;
+			 		$data_item['prestasi'] = $data_item['prestasi'] = $item->prestasi == null ? '-' : $item->prestasi;
+			 		$data_item['keanggotaan'] = 'Tim (' . $item->tim . ')';
+			 		$data_item['nim'] = $item->nim;
+			 		$data_item['nama'] = $item->mahasiswa;
+			 		$data_item['prodi'] = $item->prodi;
+			 		$data_item['fakultas'] = $item->fakultas;
 
-			 // 	$data_item['kegiatan'] = $item->kegiatan;
-			 // 	$data_item['tanggal_mulai'] = $this->pustaka->tanggal_indo_string($item->tanggal_mulai);
-			 // 	$data_item['lokasi'] = $item->lokasi;
-			 // 	$data_item['kategori'] = $this->db->get_where('kategori', ['id' => $item->kategori_id])->row()->kategori;
-			 // 	$data_item['tahun_ajar'] = substr($item->tahun_ajar, 0, 4) . '/' . substr($item->tahun_ajar, 4, 4);
-			 // 	$data_item['semester'] = $item->semester == 'e' ? 'Genap' : 'Gasal';
-			 // 	if ($item->tingkat == 'l') {
-			 // 		$data_item['tingkat'] = 'Lokal';
-			 // 	} elseif ($item->tingkat == 'n') {
-			 // 		$data_item['tingkat'] = 'Nasional';
-			 // 	} else {
-				// 	$data_item['tingkat'] = 'Internasional';
-			 // 	}
-			 // 	$pembina = $this->db->get_where('pembina', ['id' => $item->pembina_id])->row();
-			 // 	$data_item['pembina'] = $pembina->nip . ' ' .$pembina->nama;
-			 // 	if ($item->keanggotaan == 'i') {
-			 // 		$data_item['keanggotaan'] = 'Individu';
-			 // 	} else {
-			 // 		$data_item['keanggotaan'] = 'Tim';
-			 // 	}
-
-			 // 	$data['tabel'][] = $data_item;
-			 // }
+			 		$data['tabel'][] = $data_item;
+			 	}
+			}
 
 			$this->load->view("main", $data);
 		} else {

@@ -169,6 +169,7 @@ $now = date('YmdHis');
               <th>Tingkat</th>
               <th>Pembina</th>
               <th>Keanggotaan</th>
+              <th>Prestasi</th>
               <th>NIM</th>
               <th>Nama</th>
               <th>Prodi</th>
@@ -189,6 +190,7 @@ $now = date('YmdHis');
                 <td><?php echo $item['tingkat']; ?></td>
                 <td><?php echo $item['pembina']; ?></td>
                 <td><?php echo $item['keanggotaan']; ?></td>
+                <td><?php echo $item['prestasi']; ?></td>
                 <td><?php echo $item['nim']; ?></td>
                 <td><?php echo $item['nama']; ?></td>
                 <td><?php echo $item['prodi']; ?></td>
