@@ -200,7 +200,7 @@ $now = date('YmdHis');
               <div class="tile-footer">
                 <h3 class="tile-title">
                   Export
-                  <button class="btn btn-primary filter" type="button"><i class="fa fa-fw fa-lg fa-file-excel-o"></i>Excel</button>
+                  <button id="excel" class="btn btn-primary filter" type="button"><i class="fa fa-fw fa-lg fa-file-excel-o"></i>Excel</button>
                   <button id="pdf" class="btn btn-primary filter" type="button"><i class="fa fa-fw fa-lg fa-file-pdf-o"></i>PDF</button>
                 </h3>
               </div>
@@ -473,6 +473,10 @@ var lineChart = new Chart(ctxl).Line(data, {
 
       $("#pdf").click(function() {
         window.location = "<?php echo base_url('welcome/export_pdf?'); ?>" + $("form").serialize();
+      });
+
+      $("#excel").click(function() {
+        window.location = "<?php echo base_url('welcome/export_excel?'); ?>" + $("form").serialize();
       });
     </script>
 
