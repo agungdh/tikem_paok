@@ -94,6 +94,7 @@ class Welcome extends CI_Controller {
 		 	if ($kegiatanId != null) {
 		 		if ($kegiatanId != $item->kegiatan_id) {
 		 			$kegiatanId = $item->kegiatan_id;
+		 			$data_item['kegiatan_id'] = $kegiatanId;
 		 			$data_item['kegiatan'] = $item->kegiatan;
 			 		$data_item['tanggal_mulai'] = $this->pustaka->tanggal_indo_string($item->tanggal_mulai);
 				 	$data_item['lokasi'] = $item->lokasi;
@@ -117,6 +118,7 @@ class Welcome extends CI_Controller {
 			 		$data_item['fakultas'] = $item->fakultas;
 		 		} else {
 		 			$kegiatanId = $item->kegiatan_id;
+		 			$data_item['kegiatan_id'] = $kegiatanId;
 		 			$data_item['kegiatan'] = null;
 			 		$data_item['tanggal_mulai'] = null;
 				 	$data_item['lokasi'] = null;
@@ -135,6 +137,7 @@ class Welcome extends CI_Controller {
 	 			$data['tabel'][] = $data_item;
 		 	} else {
 		 		$kegiatanId = $item->kegiatan_id;
+		 		$data_item['kegiatan_id'] = $kegiatanId;
 		 		$data_item['kegiatan'] = $item->kegiatan;
 		 		$data_item['tanggal_mulai'] = $this->pustaka->tanggal_indo_string($item->tanggal_mulai);
 			 	$data_item['lokasi'] = $item->lokasi;
@@ -177,6 +180,7 @@ class Welcome extends CI_Controller {
 		 	if ($kegiatanId != null) {
 		 		if ($kegiatanId != $item->kegiatan_id) {
 		 			$kegiatanId = $item->kegiatan_id;
+		 			$data_item['kegiatan_id'] = $kegiatanId;
 		 			$data_item['kegiatan'] = $item->kegiatan;
 			 		$data_item['tanggal_mulai'] = $this->pustaka->tanggal_indo_string($item->tanggal_mulai);
 				 	$data_item['lokasi'] = $item->lokasi;
@@ -200,6 +204,7 @@ class Welcome extends CI_Controller {
 			 		$data_item['fakultas'] = $item->fakultas;
 		 		} else {
 		 			$kegiatanId = $item->kegiatan_id;
+		 			$data_item['kegiatan_id'] = $kegiatanId;
 		 			$data_item['kegiatan'] = null;
 			 		$data_item['tanggal_mulai'] = null;
 				 	$data_item['lokasi'] = null;
@@ -218,6 +223,7 @@ class Welcome extends CI_Controller {
 	 			$data['tabel'][] = $data_item;
 		 	} else {
 	 			$kegiatanId = $item->kegiatan_id;
+	 			$data_item['kegiatan_id'] = $kegiatanId;
 		 		$data_item['kegiatan'] = $item->kegiatan;
 		 		$data_item['tanggal_mulai'] = $this->pustaka->tanggal_indo_string($item->tanggal_mulai);
 			 	$data_item['lokasi'] = $item->lokasi;
@@ -315,14 +321,23 @@ class Welcome extends CI_Controller {
 		}
 
 		if ($this->input->get('kategori') != null && $this->input->get('kategori') != '0') {
-			$data['form']['kategori'] = $this->db->get_where('kategori', ['id' => $this->input->get('kategori')])->row()->kategori;
+			$data['form']['kategori'] = $this->input->get('kategori');
 
 			$where .= ' AND k.kategori_id = ? ' ;
-
+			
 			$array_where[] = $data['form']['kategori'];
+			
+			$data['form']['kategori'] = $this->db->get_where('kategori', ['id' => $this->input->get('kategori')])->row()->kategori;
+
 		}
 
 		if ($this->input->get('tingkat') != null && $this->input->get('tingkat') != '0') {
+			$data['form']['tingkat'] = $this->input->get('tingkat');
+
+			$where .= ' AND k.tingkat = ? ' ;
+
+			$array_where[] = $data['form']['tingkat'];
+
 			if ($this->input->get('tingkat') == 'l') {
               $data['form']['tingkat'] = "Lokal";
             } elseif ($this->input->get('tingkat') == 'n') {
@@ -331,12 +346,15 @@ class Welcome extends CI_Controller {
               $data['form']['tingkat'] = "Internasional";
             }
 
-			$where .= ' AND k.tingkat = ? ' ;
-
-			$array_where[] = $data['form']['tingkat'];
 		}
 		
 		if ($this->input->get('keanggotaan') != null && $this->input->get('keanggotaan') != '0') {
+			$data['form']['keanggotaan'] = $this->input->get('keanggotaan');
+
+			$where .= ' AND k.keanggotaan = ? ' ;
+
+			$array_where[] = $data['form']['keanggotaan'];
+
 			if ($this->input->get('keanggotaan') == 'i') {
               $data['form']['keanggotaan'] = "Individu";
               $url_keanggotaan = 'detil_kegiatan_individu';
@@ -345,19 +363,16 @@ class Welcome extends CI_Controller {
               $url_keanggotaan = 'detil_kegiatan_tim';
             }
 
-			$where .= ' AND k.keanggotaan = ? ' ;
-
-			$array_where[] = $data['form']['keanggotaan'];
 		}
 
-		// if ($this->input->get('prestasi') != null && $this->input->get('prestasi') != '0') {
-		// 	$data['form']['prestasi'] = $this->input->get('prestasi');
+		if ($this->input->get('prestasi') != null && $this->input->get('prestasi') != '0') {
+			$data['form']['prestasi'] = 'Hanya Berprestasi';
 
-		// 	$where_t = " AND t.prestasi != '' " ;
-		// 	$where_i = " AND i.prestasi != '' " ;
+			$where_t = " AND t.prestasi != '' " ;
+			$where_i = " AND i.prestasi != '' " ;
 
-		// 	// $array_where[] = $data['form']['prestasi'];
-		// }
+			// $array_where[] = $data['form']['prestasi'];
+		}
 
 		if ($this->input->get('fakultas') != null && $this->input->get('fakultas') != '0') {
 			$data['form']['fakultas'] = $this->input->get('fakultas');
@@ -365,6 +380,8 @@ class Welcome extends CI_Controller {
 			$where .= ' AND f.id = ? ' ;
 
 			$array_where[] = $data['form']['fakultas'];
+
+			// $data['form']['fakultas'] = $this->db->get_where('fakultas', ['id' => $this->input->get('fakultas')])->row()->nama;
 		}
 
 		if ($this->input->get('prodi') != null && $this->input->get('prodi') != '0') {
@@ -373,6 +390,9 @@ class Welcome extends CI_Controller {
 			$where .= ' AND p.id = ? ' ;
 
 			$array_where[] = $data['form']['prodi'];
+
+			// $data['form']['prodi'] = $this->db->get_where('prodi', ['id' => $this->input->get('prodi')])->row()->nama;
+
 		}
 
 		$kegiatan_individu = $this->db->query("SELECT *, i.id individu_id, f.nama fakultas, p.nama prodi, m.nama mahasiswa
@@ -390,6 +410,7 @@ class Welcome extends CI_Controller {
 		 	if ($kegiatanId != null) {
 		 		if ($kegiatanId != $item->kegiatan_id) {
 		 			$kegiatanId = $item->kegiatan_id;
+		 			$data_item['kegiatan_id'] = $kegiatanId;
 		 			$data_item['kegiatan'] = $item->kegiatan;
 			 		$data_item['tanggal_mulai'] = $this->pustaka->tanggal_indo_string($item->tanggal_mulai);
 				 	$data_item['lokasi'] = $item->lokasi;
@@ -413,6 +434,7 @@ class Welcome extends CI_Controller {
 			 		$data_item['fakultas'] = $item->fakultas;
 		 		} else {
 		 			$kegiatanId = $item->kegiatan_id;
+		 			$data_item['kegiatan_id'] = $kegiatanId;
 		 			$data_item['kegiatan'] = null;
 			 		$data_item['tanggal_mulai'] = null;
 				 	$data_item['lokasi'] = null;
@@ -431,6 +453,7 @@ class Welcome extends CI_Controller {
 	 			$data['tabel'][] = $data_item;
 		 	} else {
 		 		$kegiatanId = $item->kegiatan_id;
+		 		$data_item['kegiatan_id'] = $kegiatanId;
 		 		$data_item['kegiatan'] = $item->kegiatan;
 		 		$data_item['tanggal_mulai'] = $this->pustaka->tanggal_indo_string($item->tanggal_mulai);
 			 	$data_item['lokasi'] = $item->lokasi;
@@ -473,6 +496,7 @@ class Welcome extends CI_Controller {
 		 	if ($kegiatanId != null) {
 		 		if ($kegiatanId != $item->kegiatan_id) {
 		 			$kegiatanId = $item->kegiatan_id;
+		 			$data_item['kegiatan_id'] = $kegiatanId;
 		 			$data_item['kegiatan'] = $item->kegiatan;
 			 		$data_item['tanggal_mulai'] = $this->pustaka->tanggal_indo_string($item->tanggal_mulai);
 				 	$data_item['lokasi'] = $item->lokasi;
@@ -496,6 +520,7 @@ class Welcome extends CI_Controller {
 			 		$data_item['fakultas'] = $item->fakultas;
 		 		} else {
 		 			$kegiatanId = $item->kegiatan_id;
+		 			$data_item['kegiatan_id'] = $kegiatanId;
 		 			$data_item['kegiatan'] = null;
 			 		$data_item['tanggal_mulai'] = null;
 				 	$data_item['lokasi'] = null;
@@ -514,6 +539,7 @@ class Welcome extends CI_Controller {
 	 			$data['tabel'][] = $data_item;
 		 	} else {
 	 			$kegiatanId = $item->kegiatan_id;
+	 			$data_item['kegiatan_id'] = $kegiatanId;
 		 		$data_item['kegiatan'] = $item->kegiatan;
 		 		$data_item['tanggal_mulai'] = $this->pustaka->tanggal_indo_string($item->tanggal_mulai);
 			 	$data_item['lokasi'] = $item->lokasi;
@@ -548,12 +574,13 @@ class Welcome extends CI_Controller {
 			$data['form']['prodi'] = $this->db->get_where('prodi', ['id' => $data['form']['prodi']])->row()->nama;
 		}
 
+		// var_dump($data['tabel']); die;
 		// instantiate and use the dompdf class
 		$dompdf = new Dompdf();
 		$dompdf->loadHtml($this->load->view('dompdf', $data, true));
 
 		// (Optional) Setup the paper size and orientation
-		$dompdf->setPaper('A4', 'landscape');
+		$dompdf->setPaper('A3', 'landscape');
 
 		// Render the HTML as PDF
 		$dompdf->render();
