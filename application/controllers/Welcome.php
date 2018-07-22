@@ -586,7 +586,7 @@ class Welcome extends CI_Controller {
 		$dompdf->render();
 
 		// Output the generated PDF to Browser
-		$dompdf->stream();
+		$dompdf->stream('Data Kegiatan dan Prestasi Mahasiswa Universitas Budi Luhur.pdf');
 	}
 
 }
