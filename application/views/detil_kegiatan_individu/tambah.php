@@ -13,7 +13,7 @@
     <div class="tile">
       <h3 class="tile-title">Tambah Detil Kegiatan</h3>
       <div class="tile-body">
-        <form method="post" action="<?php echo base_url('detil_kegiatan/aksi_tambah'); ?>" enctype="multipart/form-data">
+        <form method="post" action="<?php echo base_url('detil_kegiatan_individu/aksi_tambah'); ?>" enctype="multipart/form-data">
           
           <input type="hidden" name="data[kegiatan_id]" value="<?php echo $data['kegiatan']->id; ?>">
 
@@ -53,7 +53,7 @@
           <div class="tile-footer">
             <button id="simpan" class="btn btn-primary" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Simpan</button>
             &nbsp;&nbsp;&nbsp;
-            <a class="btn btn-secondary" href="<?php echo base_url('detil_kegiatan/index/' . $data['kegiatan']->id); ?>"><i class="fa fa-fw fa-lg fa-times-circle"></i>Batal</a> <input type="submit" style="visibility: hidden;">
+            <a class="btn btn-secondary" href="<?php echo base_url('detil_kegiatan_individu/index/' . $data['kegiatan']->id); ?>"><i class="fa fa-fw fa-lg fa-times-circle"></i>Batal</a> <input type="submit" style="visibility: hidden;">
           </div>
         </form>
     </div>

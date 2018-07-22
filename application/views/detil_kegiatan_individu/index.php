@@ -17,7 +17,7 @@ $now = date('YmdHis');
       <div class="tile-body">
         <div class="tile-title-w-btn">
           <h3 class="title">Data Detil Kegiatan</h3>
-          <p><a class="btn btn-primary icon-btn" href="<?php echo base_url('detil_kegiatan/tambah/' . $data['kegiatan']->id); ?>"><i class="fa fa-plus"></i><?php echo $data['kegiatan']->keanggotaan == 'i' ? 'Individu' : 'Tim' ?></a></p>
+          <p><a class="btn btn-primary icon-btn" href="<?php echo base_url('detil_kegiatan_individu/tambah/' . $data['kegiatan']->id); ?>"><i class="fa fa-plus"></i><?php echo $data['kegiatan']->keanggotaan == 'i' ? 'Individu' : 'Tim' ?></a></p>
         </div>
         <table class="table table-hover table-bordered datatable" >
           <thead>
@@ -63,7 +63,7 @@ $now = date('YmdHis');
                 <td><img height="150px" width="200px" src="<?php echo base_url($bukti . '?time=' . $now); ?>"></td>
                 <td>
                   <div class="btn-group">
-                  <a class="btn btn-primary" href="<?php echo base_url('detil_kegiatan/ubah/' . $item->id); ?>" data-toggle="tooltip" title="Ubah"><i class="fa fa-edit"></i></a>
+                  <a class="btn btn-primary" href="<?php echo base_url('detil_kegiatan_individu/ubah/' . $item->id); ?>" data-toggle="tooltip" title="Ubah"><i class="fa fa-edit"></i></a>
                   <a class="btn btn-primary" href="#" onclick="hapus('<?php echo $item->id; ?>')" data-toggle="tooltip" title="Hapus"><i class="fa fa-trash"></i></a>
                 </div>
                 </td>

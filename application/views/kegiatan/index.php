@@ -65,14 +65,16 @@
                 <?php
                 if ($item->keanggotaan == 'i') {
                   $keanggotaan = "Individu";
+                  $url_keanggotaan = 'detil_kegiatan_individu';
                 } else {
                   $keanggotaan = "Tim";
+                  $url_keanggotaan = 'detil_kegiatan_tim';
                 }
                 ?>
                 <td><?php echo $keanggotaan; ?></td>
                 <td>
                   <div class="btn-group">
-                  <a class="btn btn-primary" href="<?php echo base_url('detil_kegiatan/index/' . $item->id); ?>" data-toggle="tooltip" title="Detil Kegiatan"><i class="fa fa-share"></i></a>
+                  <a class="btn btn-primary" href="<?php echo base_url($url_keanggotaan . '/index/' . $item->id); ?>" data-toggle="tooltip" title="Detil Kegiatan"><i class="fa fa-share"></i></a>
                   <a class="btn btn-primary" href="<?php echo base_url('kegiatan/ubah/' . $item->id); ?>" data-toggle="tooltip" title="Ubah"><i class="fa fa-edit"></i></a>
                   <a class="btn btn-primary" href="#" onclick="hapus('<?php echo $item->id; ?>')" data-toggle="tooltip" title="Hapus"><i class="fa fa-trash"></i></a>
                 </div>

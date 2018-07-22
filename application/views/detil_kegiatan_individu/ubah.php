@@ -16,9 +16,9 @@ $now = date('YmdHis');
     <div class="tile">
       <h3 class="tile-title">Ubah Detil Kegiatan</h3>
       <div class="tile-body">
-        <form method="post" action="<?php echo base_url('detil_kegiatan/aksi_ubah'); ?>" enctype="multipart/form-data">
+        <form method="post" action="<?php echo base_url('detil_kegiatan_individu/aksi_ubah'); ?>" enctype="multipart/form-data">
           
-          <input type="hidden" name="where[id]" value="<?php echo $data['detil_kegiatan']->id; ?>">
+          <input type="hidden" name="where[id]" value="<?php echo $data['detil_kegiatan_individu']->id; ?>">
           <input type="hidden" name="data[kegiatan_id]" value="<?php echo $data['kegiatan']->id; ?>">
 
           <div class="form-group">
@@ -30,8 +30,8 @@ $now = date('YmdHis');
                                         WHERE id NOT IN (SELECT mahasiswa_id
                                                          FROM individu
                                                          WHERE kegiatan_id = ?)
-                                        OR id IN (?)", [$data['kegiatan']->id, $data['detil_kegiatan']->mahasiswa_id])->result() as $item) {
-                if ($item->id == $data['detil_kegiatan']->mahasiswa_id) {
+                                        OR id IN (?)", [$data['kegiatan']->id, $data['detil_kegiatan_individu']->mahasiswa_id])->result() as $item) {
+                if ($item->id == $data['detil_kegiatan_individu']->mahasiswa_id) {
                   ?>
                   <option selected value="<?php echo $item->id; ?>"><?php echo $item->nim . ' ' . $item->nama; ?></option>
                   <?php
@@ -49,8 +49,8 @@ $now = date('YmdHis');
             <label class="control-label">Foto Kegiatan</label>
             <br>
             <?php
-            if (file_exists('uploads/kegiatan/' . $data['detil_kegiatan']->id)) {
-              $foto = 'uploads/kegiatan/' . $data['detil_kegiatan']->id;
+            if (file_exists('uploads/kegiatan/' . $data['detil_kegiatan_individu']->id)) {
+              $foto = 'uploads/kegiatan/' . $data['detil_kegiatan_individu']->id;
             } else {
               $foto = 'assets/th.jpeg';
             }
@@ -61,15 +61,15 @@ $now = date('YmdHis');
 
           <div class="form-group">
             <label class="control-label">Prestasi</label>
-            <input class="form-control" type="text" placeholder="Masukan Prestasi" name="data[prestasi]" value="<?php echo $data['detil_kegiatan']->prestasi; ?>">
+            <input class="form-control" type="text" placeholder="Masukan Prestasi" name="data[prestasi]" value="<?php echo $data['detil_kegiatan_individu']->prestasi; ?>">
           </div>
 
           <div class="form-group">
             <label class="control-label">Foto Prestasi</label>
             <br>
             <?php
-            if (file_exists('uploads/prestasi/' . $data['detil_kegiatan']->id)) {
-              $foto = 'uploads/prestasi/' . $data['detil_kegiatan']->id;
+            if (file_exists('uploads/prestasi/' . $data['detil_kegiatan_individu']->id)) {
+              $foto = 'uploads/prestasi/' . $data['detil_kegiatan_individu']->id;
             } else {
               $foto = 'assets/th.jpeg';
             }
@@ -82,7 +82,7 @@ $now = date('YmdHis');
           <div class="tile-footer">
             <button id="simpan" class="btn btn-primary" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Simpan</button>
             &nbsp;&nbsp;&nbsp;
-            <a class="btn btn-secondary" href="<?php echo base_url('detil_kegiatan/index/' . $data['kegiatan']->id); ?>"><i class="fa fa-fw fa-lg fa-times-circle"></i>Batal</a> <input type="submit" style="visibility: hidden;">
+            <a class="btn btn-secondary" href="<?php echo base_url('detil_kegiatan_individu/index/' . $data['kegiatan']->id); ?>"><i class="fa fa-fw fa-lg fa-times-circle"></i>Batal</a> <input type="submit" style="visibility: hidden;">
           </div>
         </form>
     </div>
