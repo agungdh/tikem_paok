@@ -14,7 +14,7 @@ var data = {
             ],
             datasets: [
                   {
-                        label: "Peminjaman",
+                        label: "Kegiatan",
                         fillColor: "rgba(220,220,220,0.2)",
                         strokeColor: "rgba(220,220,220,1)",
                         pointColor: "rgba(220,220,220,1)",
@@ -29,9 +29,9 @@ var data = {
 
                               $array[] = $this->db->query("
                                     SELECT count(*) total
-                                    FROM peminjaman
-                                    WHERE month(tanggal) = ?
-                                    AND year(tanggal) = ?
+                                    FROM kegiatan
+                                    WHERE month(tanggal_mulai) = ?
+                                    AND year(tanggal_mulai) = ?
                               ", [$bulan, $tahun])->row()->total;             
                         }
                         foreach (array_reverse($array) as $item) {
@@ -42,7 +42,7 @@ var data = {
                         ]
                   },
                   {
-                        label: "Pengembalian",
+                        label: "Prestasi",
                         fillColor: "rgba(151,187,205,0.2)",
                         strokeColor: "rgba(151,187,205,1)",
                         pointColor: "rgba(151,187,205,1)",
@@ -55,12 +55,29 @@ var data = {
                               $bulan = explode('-', date("m-Y", strtotime("-" . $i . " months")))[0];
                               $tahun = explode('-', date("m-Y", strtotime("-" . $i . " months")))[1];
 
-                              $array[] = $this->db->query("
-                                    SELECT count(*) total
-                                    FROM pengembalian
-                                    WHERE month(tanggal) = ?
-                                    AND year(tanggal) = ?
-                              ", [$bulan, $tahun])->row()->total;             
+                              $kegiatan = $this->db->query("
+                                    SELECT *
+                                    FROM kegiatan
+                                    WHERE month(tanggal_mulai) = ?
+                                    AND year(tanggal_mulai) = ?
+                              ", [$bulan, $tahun])->result();
+
+                              $total = 0;
+                              foreach ($kegiatan as $item) {
+                                 $total_individu = $this->db->query("SELECT count(id) jumlah
+                                       FROM individu
+                                       WHERE kegiatan_id = ?
+                                       AND prestasi != ''", [$item->id])->row()->jumlah;
+
+                                 $total_tim = $this->db->query("SELECT count(id) jumlah
+                                       FROM tim
+                                       WHERE kegiatan_id = ?
+                                       AND prestasi != ''", [$item->id])->row()->jumlah;
+
+                                 $total += $total_individu + $total_tim;                      
+                              }
+                              $array[] = $total;
+
                         }
                         foreach (array_reverse($array) as $item) {
                               echo '"'.$item.'",';
