@@ -70,7 +70,7 @@ $now = date('YmdHis');
                 <form method="post" action="<?php echo base_url(); ?>">
                   <div class="form-group">
                     <label class="control-label">Tanggal</label>
-                    <input class="form-control" type="text" name="tanggal_mulai" id="daterangepicker" value="<?php echo isset($form['tanggal_mulai']) ? $form['tanggal_mulai'] : null; ?>">
+                    <input class="form-control" autocomplete="off" type="text" name="tanggal_mulai" id="daterangepicker" value="<?php echo isset($form['tanggal_mulai']) ? $form['tanggal_mulai'] : null; ?>">
                   </div>
 
                   <div class="form-group">
