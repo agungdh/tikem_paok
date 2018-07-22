@@ -8,6 +8,9 @@ class Welcome extends CI_Controller {
 
 	function index() {
 		$where = ' ';
+		$where_i = ' ';
+		$where_t = ' ';
+		$where = ' ';
 		$array_where = [];
 		$data = [];
 		$data['tabel'] = [];
@@ -41,6 +44,23 @@ class Welcome extends CI_Controller {
 
 			$array_where[] = $data['form']['tingkat'];
 		}
+		
+		if ($this->input->post('keanggotaan') != null && $this->input->post('keanggotaan') != '0') {
+			$data['form']['keanggotaan'] = $this->input->post('keanggotaan');
+
+			$where .= ' AND k.keanggotaan = ? ' ;
+
+			$array_where[] = $data['form']['keanggotaan'];
+		}
+
+		if ($this->input->post('prestasi') != null && $this->input->post('prestasi') != '0') {
+			$data['form']['prestasi'] = $this->input->post('prestasi');
+
+			$where_t = " AND t.prestasi != '' " ;
+			$where_i = " AND i.prestasi != '' " ;
+
+			// $array_where[] = $data['form']['prestasi'];
+		}
 
 		$kegiatan_individu = $this->db->query("SELECT *, i.id individu_id, f.nama fakultas, p.nama prodi, m.nama mahasiswa
 												FROM kegiatan k, individu i, mahasiswa m, prodi p, fakultas f
@@ -48,7 +68,7 @@ class Welcome extends CI_Controller {
 												AND i.mahasiswa_id = m.id
 												AND m.prodi_id = p.id
 												AND p.fakultas_id = f.id"
-												. $where .
+												. $where . $where_i .
 												"ORDER BY k.id", $array_where)->result();
 // echo $this->db->last_query() . "<br>";
 		$data_item = [];
@@ -131,7 +151,7 @@ class Welcome extends CI_Controller {
 										AND dt.mahasiswa_id = m.id
 										AND m.prodi_id = p.id
 										AND p.fakultas_id = f.id"
-										. $where .
+										. $where . $where_t .
 										"ORDER BY k.id, t.id", $array_where)->result();
 		// echo $this->db->last_query() . "<br>";
 		$data_item = [];

@@ -110,60 +110,27 @@ $now = date('YmdHis');
                   <div class="form-group">
                     <label class="control-label">Tingkat</label>
                     <select class="form-control select2" name="tingkat">
-                      <?php
-                      if ($this->input->post('kategori') != null) {
-                        if ($this->input->post('kategori') == '0') {
-                          $select = 'selected';
-                        } else {
-                          $select = null;
-                        }
-                      } else {
-                        $select = null;
-                      }
-                      ?>
-                      <option <?php echo $select; ?> value="0">Semua</option>
-                      <option <?php echo $select; ?> value="l">Lokal</option>
-                      <option <?php echo $select; ?> value="n">Nasional</option>
-                      <option <?php echo $select; ?> value="i">Internasional</option>
+                      <option <?php echo $this->input->post('tingkat') != null && $this->input->post('tingkat') == '0' ? 'selected' : null; ?> value="0">Semua</option>
+                      <option <?php echo $this->input->post('tingkat') != null && $this->input->post('tingkat') == 'l' ? 'selected' : null; ?> value="l">Lokal</option>
+                      <option <?php echo $this->input->post('tingkat') != null && $this->input->post('tingkat') == 'n' ? 'selected' : null; ?> value="n">Nasional</option>
+                      <option <?php echo $this->input->post('tingkat') != null && $this->input->post('tingkat') == 'i' ? 'selected' : null; ?> value="i">Internasional</option>
                     </select>
                   </div>
 
                   <div class="form-group">
                     <label class="control-label">Keanggotaan</label>
                     <select class="form-control select2" name="keanggotaan">
-                      <?php
-                      if ($this->input->post('kategori') != null) {
-                        if ($this->input->post('kategori') == '0') {
-                          $select = 'selected';
-                        } else {
-                          $select = null;
-                        }
-                      } else {
-                        $select = null;
-                      }
-                      ?>
-                      <option <?php echo $select; ?> value="0">Semua</option>
-                      <option <?php echo $select; ?> value="t">Tim</option>
-                      <option <?php echo $select; ?> value="i">Individu</option>
+                      <option <?php echo $this->input->post('keanggotaan') != null && $this->input->post('keanggotaan') == '0' ? 'selected' : null; ?> value="0">Semua</option>
+                      <option <?php echo $this->input->post('keanggotaan') != null && $this->input->post('keanggotaan') == 't' ? 'selected' : null; ?> value="t">Tim</option>
+                      <option <?php echo $this->input->post('keanggotaan') != null && $this->input->post('keanggotaan') == 'i' ? 'selected' : null; ?> value="i">Individu</option>
                     </select>
                   </div>
 
                   <div class="form-group">
                     <label class="control-label">Prestasi</label>
                     <select class="form-control select2" name="prestasi">
-                      <?php
-                      if ($this->input->post('kategori') != null) {
-                        if ($this->input->post('kategori') == '0') {
-                          $select = 'selected';
-                        } else {
-                          $select = null;
-                        }
-                      } else {
-                        $select = null;
-                      }
-                      ?>
-                      <option <?php echo $select; ?> value="0">Semua</option>
-                      <option <?php echo $select; ?> value="1">Hanya Berprestasi</option>
+                      <option <?php echo $this->input->post('prestasi') != null && $this->input->post('prestasi') == '0' ? 'selected' : null; ?> value="0">Semua</option>
+                      <option <?php echo $this->input->post('prestasi') != null && $this->input->post('prestasi') == '1' ? 'selected' : null; ?> value="1">Hanya Berprestasi</option>
                     </select>
                   </div>
 
