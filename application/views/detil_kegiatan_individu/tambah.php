@@ -21,11 +21,7 @@
             <label class="control-label">Mahasiswa</label>
             <select class="form-control select2" required name="data[mahasiswa_id]">
               <?php
-              foreach ($this->db->query("SELECT *
-                                          FROM mahasiswa
-                                          WHERE id NOT IN (SELECT mahasiswa_id
-                                                           FROM individu
-                                                           WHERE kegiatan_id = ?)", [$data['kegiatan']->id])->result() as $item) {
+              foreach ($this->db->get('mahasiswa')->result() as $item) {
                 ?>
                 <option value="<?php echo $item->id; ?>"><?php echo $item->nim . ' ' . $item->nama; ?></option>
                 <?php
