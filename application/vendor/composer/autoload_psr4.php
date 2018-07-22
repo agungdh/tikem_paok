@@ -11,4 +11,5 @@ return array(
     'Gumlet\\' => array($vendorDir . '/gumlet/php-image-resize/lib'),
     'FontLib\\' => array($vendorDir . '/phenx/php-font-lib/src/FontLib'),
     'Dompdf\\' => array($vendorDir . '/dompdf/dompdf/src'),
+    'Apfelbox\\FileDownload\\' => array($vendorDir . '/apfelbox/php-file-download/src'),
 );

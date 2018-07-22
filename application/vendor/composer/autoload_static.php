@@ -24,6 +24,10 @@ class ComposerStaticInitbca262e1e93c4f2ca194525e8ba41a01
         array (
             'Dompdf\\' => 7,
         ),
+        'A' => 
+        array (
+            'Apfelbox\\FileDownload\\' => 22,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -47,6 +51,10 @@ class ComposerStaticInitbca262e1e93c4f2ca194525e8ba41a01
         array (
             0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
         ),
+        'Apfelbox\\FileDownload\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/apfelbox/php-file-download/src',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -55,6 +63,10 @@ class ComposerStaticInitbca262e1e93c4f2ca194525e8ba41a01
             'Svg\\' => 
             array (
                 0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src',
+            ),
+            'Skyzyx\\Components\\Mimetypes' => 
+            array (
+                0 => __DIR__ . '/..' . '/skyzyx/mimetypes/src',
             ),
             'Sabberworm\\CSS' => 
             array (
