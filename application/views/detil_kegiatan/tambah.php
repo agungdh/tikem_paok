@@ -41,7 +41,7 @@
 
           <div class="form-group">
             <label class="control-label">Prestasi</label>
-            <input class="form-control" type="text" required placeholder="Masukan Prestasi" name="data[prestasi]">
+            <input class="form-control" type="text" placeholder="Masukan Prestasi" name="data[prestasi]">
           </div>
 
           <div class="form-group">

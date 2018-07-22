@@ -61,7 +61,7 @@ $now = date('YmdHis');
 
           <div class="form-group">
             <label class="control-label">Prestasi</label>
-            <input class="form-control" type="text" required placeholder="Masukan Prestasi" name="data[prestasi]" value="<?php echo $data['detil_kegiatan']->prestasi; ?>">
+            <input class="form-control" type="text" placeholder="Masukan Prestasi" name="data[prestasi]" value="<?php echo $data['detil_kegiatan']->prestasi; ?>">
           </div>
 
           <div class="form-group">
