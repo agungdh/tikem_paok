@@ -43,8 +43,8 @@ $now = date('YmdHis');
                 <td><?php echo $mahasiswa->nim; ?></td>
                 <td><?php echo $mahasiswa->nama; ?></td>
                 <?php
-                if (file_exists('uploads/kegiatan/' . $item->id)) {
-                  $foto = 'uploads/kegiatan/' . $item->id;
+                if (file_exists('uploads/kegiatan/individu/' . $item->id)) {
+                  $foto = 'uploads/kegiatan/individu/' . $item->id;
                 } else {
                   $foto = 'assets/th.jpeg';
                 }
@@ -54,8 +54,8 @@ $now = date('YmdHis');
                 <td><?php echo $this->db->get_where('fakultas', ['id' => $this->db->get_where('prodi', ['id' => $mahasiswa->prodi_id])->row()->fakultas_id])->row()->nama; ?></td>
                 <td><?php echo $item->prestasi; ?></td>
                 <?php
-                if (file_exists('uploads/prestasi/' . $item->id)) {
-                  $bukti = 'uploads/prestasi/' . $item->id;
+                if (file_exists('uploads/prestasi/individu/' . $item->id)) {
+                  $bukti = 'uploads/prestasi/individu/' . $item->id;
                 } else {
                   $bukti = 'assets/th.jpeg';
                 }

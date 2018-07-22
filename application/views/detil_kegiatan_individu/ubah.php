@@ -49,8 +49,8 @@ $now = date('YmdHis');
             <label class="control-label">Foto Kegiatan</label>
             <br>
             <?php
-            if (file_exists('uploads/kegiatan/' . $data['detil_kegiatan_individu']->id)) {
-              $foto = 'uploads/kegiatan/' . $data['detil_kegiatan_individu']->id;
+            if (file_exists('uploads/kegiatan/individu/' . $data['detil_kegiatan_individu']->id)) {
+              $foto = 'uploads/kegiatan/individu/' . $data['detil_kegiatan_individu']->id;
             } else {
               $foto = 'assets/th.jpeg';
             }
@@ -68,8 +68,8 @@ $now = date('YmdHis');
             <label class="control-label">Foto Prestasi</label>
             <br>
             <?php
-            if (file_exists('uploads/prestasi/' . $data['detil_kegiatan_individu']->id)) {
-              $foto = 'uploads/prestasi/' . $data['detil_kegiatan_individu']->id;
+            if (file_exists('uploads/prestasi/individu/' . $data['detil_kegiatan_individu']->id)) {
+              $foto = 'uploads/prestasi/individu/' . $data['detil_kegiatan_individu']->id;
             } else {
               $foto = 'assets/th.jpeg';
             }

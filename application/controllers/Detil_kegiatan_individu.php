@@ -49,8 +49,8 @@ class Detil_kegiatan_individu extends CI_Controller {
 		$foto_kegiatan = $_FILES['foto_kegiatan'];
 		$foto_prestasi = $_FILES['foto_prestasi'];
 
-		move_uploaded_file($foto_kegiatan['tmp_name'], 'uploads/kegiatan/' . $insert_id);
-		move_uploaded_file($foto_prestasi['tmp_name'], 'uploads/prestasi/' . $insert_id);
+		move_uploaded_file($foto_kegiatan['tmp_name'], 'uploads/kegiatan/individu/' . $insert_id);
+		move_uploaded_file($foto_prestasi['tmp_name'], 'uploads/prestasi/individu/' . $insert_id);
 
 		redirect(base_url('detil_kegiatan_individu/index/' . $this->input->post('data')['kegiatan_id']));
 	}
@@ -73,8 +73,8 @@ class Detil_kegiatan_individu extends CI_Controller {
 		$foto_kegiatan = $_FILES['foto_kegiatan'];
 		$foto_prestasi = $_FILES['foto_prestasi'];
 
-		move_uploaded_file($foto_kegiatan['tmp_name'], 'uploads/kegiatan/' . $where['id']);
-		move_uploaded_file($foto_prestasi['tmp_name'], 'uploads/prestasi/' . $where['id']);
+		move_uploaded_file($foto_kegiatan['tmp_name'], 'uploads/kegiatan/individu/' . $where['id']);
+		move_uploaded_file($foto_prestasi['tmp_name'], 'uploads/prestasi/individu/' . $where['id']);
 
 		redirect(base_url('detil_kegiatan_individu/index/' . $this->input->post('data')['kegiatan_id']));
 	}
@@ -85,8 +85,8 @@ class Detil_kegiatan_individu extends CI_Controller {
 
 		$this->db->delete('individu', ['id' => $id]);
 
-		unlink('uploads/kegiatan/' . $individu->id);
-		unlink('uploads/prestasi/' . $individu->id);
+		unlink('uploads/kegiatan/individu/' . $individu->id);
+		unlink('uploads/prestasi/individu/' . $individu->id);
 
 		redirect(base_url('detil_kegiatan_individu/index/' . $kegiatan->id));
 	}
