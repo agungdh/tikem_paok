@@ -276,7 +276,16 @@ $now = date('YmdHis');
       var data = {
             labels: [
             
-            "Maret 2018","April 2018","Mei 2018","Juni 2018","Juli 2018",            ],
+            <?php
+            for ($i=0; $i <= 4; $i++) {
+                  $array[] = $this->pustaka->tanggal_indo_string_bulan_tahun(date("m-Y", strtotime("-" . $i . " months")));
+            }
+            foreach (array_reverse($array) as $item) {
+                  echo '"'.$item.'",';
+             }
+             unset($array);
+            ?>
+            ],
             datasets: [
                   {
                         label: "Kegiatan",
@@ -287,7 +296,24 @@ $now = date('YmdHis');
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(220,220,220,1)",
                         data: [
-                        "0","0","0","1","2",                        ]
+                        <?php
+                        for ($i=0; $i <= 4; $i++) {
+                              $bulan = explode('-', date("m-Y", strtotime("-" . $i . " months")))[0];
+                              $tahun = explode('-', date("m-Y", strtotime("-" . $i . " months")))[1];
+
+                              $array[] = $this->db->query("
+                                    SELECT count(*) total
+                                    FROM kegiatan
+                                    WHERE month(tanggal_mulai) = ?
+                                    AND year(tanggal_mulai) = ?
+                              ", [$bulan, $tahun])->row()->total;             
+                        }
+                        foreach (array_reverse($array) as $item) {
+                              echo '"'.$item.'",';
+                         }
+                         unset($array);
+                        ?>
+                        ]
                   },
                   {
                         label: "Prestasi",
@@ -298,7 +324,41 @@ $now = date('YmdHis');
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(151,187,205,1)",
                         data: [
-                        "0","0","0","1","4",                        ]
+                        <?php
+                        for ($i=0; $i <= 4; $i++) {
+                              $bulan = explode('-', date("m-Y", strtotime("-" . $i . " months")))[0];
+                              $tahun = explode('-', date("m-Y", strtotime("-" . $i . " months")))[1];
+
+                              $kegiatan = $this->db->query("
+                                    SELECT *
+                                    FROM kegiatan
+                                    WHERE month(tanggal_mulai) = ?
+                                    AND year(tanggal_mulai) = ?
+                              ", [$bulan, $tahun])->result();
+
+                              $total = 0;
+                              foreach ($kegiatan as $item) {
+                                 $total_individu = $this->db->query("SELECT count(id) jumlah
+                                       FROM individu
+                                       WHERE kegiatan_id = ?
+                                       AND prestasi != ''", [$item->id])->row()->jumlah;
+
+                                 $total_tim = $this->db->query("SELECT count(id) jumlah
+                                       FROM tim
+                                       WHERE kegiatan_id = ?
+                                       AND prestasi != ''", [$item->id])->row()->jumlah;
+
+                                 $total += $total_individu + $total_tim;                      
+                              }
+                              $array[] = $total;
+
+                        }
+                        foreach (array_reverse($array) as $item) {
+                              echo '"'.$item.'",';
+                         }
+                         unset($array);
+                        ?>
+                        ]
                   }
             ]
       };
