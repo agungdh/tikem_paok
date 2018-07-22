@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 20, 2018 at 10:36 PM
+-- Generation Time: Jul 22, 2018 at 10:49 AM
 -- Server version: 10.1.29-MariaDB-6
 -- PHP Version: 5.6.36
 
@@ -47,9 +47,19 @@ INSERT INTO `config` (`judul_aplikasi`, `judul_menu`) VALUES
 --
 
 CREATE TABLE `detil_tim` (
+  `id` int(11) NOT NULL,
   `tim_id` int(11) NOT NULL,
   `mahasiswa_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `detil_tim`
+--
+
+INSERT INTO `detil_tim` (`id`, `tim_id`, `mahasiswa_id`) VALUES
+(8, 5, 3),
+(10, 6, 2),
+(11, 6, 3);
 
 -- --------------------------------------------------------
 
@@ -82,6 +92,16 @@ CREATE TABLE `individu` (
   `prestasi` varchar(191) DEFAULT NULL,
   `mahasiswa_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `individu`
+--
+
+INSERT INTO `individu` (`id`, `kegiatan_id`, `prestasi`, `mahasiswa_id`) VALUES
+(2, 6, 'asdf', 2),
+(4, 5, 'jkl', 2),
+(5, 5, 'qwfadsvs', 3),
+(6, 5, '', 4);
 
 -- --------------------------------------------------------
 
@@ -129,7 +149,8 @@ CREATE TABLE `kegiatan` (
 
 INSERT INTO `kegiatan` (`id`, `kegiatan`, `tanggal_mulai`, `tanggal_selesai`, `lokasi`, `kategori_id`, `tahun_ajar`, `tingkat`, `semester`, `pembina_id`, `keanggotaan`) VALUES
 (4, '12', '2018-07-04', '2018-07-05', '23', 4, '20092010', 'l', 'o', 2, 't'),
-(5, '1', '2018-07-26', '2018-07-17', '23', 1, '19071908', 'i', 'o', 2, 'i');
+(5, '1', '2018-07-26', '2018-07-17', '23', 1, '19071908', 'i', 'o', 2, 'i'),
+(6, 'adsfghjkl', '2018-06-15', '2018-07-26', 'qewrtfgyjhukl;\'/', 1, '19021903', 'n', 'e', 2, 'i');
 
 -- --------------------------------------------------------
 
@@ -150,7 +171,8 @@ CREATE TABLE `mahasiswa` (
 
 INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `prodi_id`) VALUES
 (2, '15753003', 'Agung DH', 13),
-(3, '15753016', 'Buntang Paok tenan', 14);
+(3, '15753016', 'Buntang Paok tenan', 14),
+(4, '124124', 'asfd', 13);
 
 -- --------------------------------------------------------
 
@@ -202,8 +224,18 @@ INSERT INTO `prodi` (`id`, `nama`, `fakultas_id`) VALUES
 CREATE TABLE `tim` (
   `id` int(11) NOT NULL,
   `kegiatan_id` int(11) NOT NULL,
+  `tim` varchar(191) NOT NULL,
   `prestasi` varchar(191) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tim`
+--
+
+INSERT INTO `tim` (`id`, `kegiatan_id`, `tim`, `prestasi`) VALUES
+(4, 4, 'tim semua semua 123', ' as f'),
+(5, 4, 'tim iseng', ''),
+(6, 4, '12ewq', 'qewr qw');
 
 -- --------------------------------------------------------
 
@@ -214,25 +246,17 @@ CREATE TABLE `tim` (
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL,
-  `username` varchar(255) NOT NULL,
+  `username` varchar(191) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `level` int(11) NOT NULL,
-  `prodi_id` int(11) DEFAULT NULL
+  `level` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `nama`, `username`, `password`, `level`, `prodi_id`) VALUES
-(1, 'Administrator', 'admin', 'c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec', 1, NULL),
-(2, 'Operator FTI 1', 'opfti1', 'd404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db', 3, 13),
-(4, 'Test Admin', 'testadmin', 'd404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db', 1, NULL),
-(5, 'Test DPM', 'testdpm', 'd404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db', 2, NULL),
-(6, 'Test Fe', 'testfe', 'd404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db', 3, 15),
-(12, 'cobafti1', 'cobafti1', '82652b6d108ee60bbfddccd3e220e1135a6aa793c8103430f64b0c1861ff5d37de92b8980b63b7af42115edd0168702317a88da72bf308d59b6524c156703a84', 3, 13),
-(16, 'w', 'r', 'a882f0ac848b0b6b4ca7b42bfa1d266afd0ddeba9204ae57a984a69376d59816b1ef3f4d442ea8a70396067ff5b70e0ae8eab3935b617b8e366d8e35c3bfe14c', 3, 13),
-(17, '1', '2', '3bafbf08882a2d10133093a1b8433f50563b93c14acd05b79028eb1d12799027241450980651994501423a66c276ae26c43b739bc65c4e16b10c3af6c202aebb', 2, NULL);
+INSERT INTO `user` (`id`, `nama`, `username`, `password`, `level`) VALUES
+(1, 'Administrator', 'admin', 'c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec', 1);
 
 --
 -- Indexes for dumped tables
@@ -242,8 +266,9 @@ INSERT INTO `user` (`id`, `nama`, `username`, `password`, `level`, `prodi_id`) V
 -- Indexes for table `detil_tim`
 --
 ALTER TABLE `detil_tim`
-  ADD PRIMARY KEY (`tim_id`,`mahasiswa_id`),
-  ADD KEY `mahasiswa_id` (`mahasiswa_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `mahasiswa_id` (`mahasiswa_id`),
+  ADD KEY `tim_id` (`tim_id`);
 
 --
 -- Indexes for table `fakultas`
@@ -307,23 +332,29 @@ ALTER TABLE `tim`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `prodi_id` (`prodi_id`);
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
+-- AUTO_INCREMENT for table `detil_tim`
+--
+ALTER TABLE `detil_tim`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT for table `fakultas`
 --
 ALTER TABLE `fakultas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `individu`
 --
 ALTER TABLE `individu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -335,7 +366,7 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `kegiatan`
 --
 ALTER TABLE `kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `mahasiswa`
@@ -347,25 +378,25 @@ ALTER TABLE `mahasiswa`
 -- AUTO_INCREMENT for table `pembina`
 --
 ALTER TABLE `pembina`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `prodi`
 --
 ALTER TABLE `prodi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tim`
 --
 ALTER TABLE `tim`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Constraints for dumped tables
