@@ -195,6 +195,16 @@ $now = date('YmdHis');
                 <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
               </div>
 
+              <br>
+
+              <div class="tile-footer">
+                <h3 class="tile-title">
+                  Export
+                  <button class="btn btn-primary filter" type="button"><i class="fa fa-fw fa-lg fa-file-excel-o"></i>Excel</button>
+                  <button id="pdf" class="btn btn-primary filter" type="button"><i class="fa fa-fw fa-lg fa-file-pdf-o"></i>PDF</button>
+                </h3>
+              </div>
+
             </div>  
           </div>
         </div>
@@ -431,6 +441,10 @@ var lineChart = new Chart(ctxl).Line(data, {
 
       $("#fakultas").change(function() {
         ajax_prodi();
+      });
+
+      $("#pdf").click(function() {
+        window.location = "<?php echo base_url('welcome/export_pdf?'); ?>" + $("form").serialize();
       });
     </script>
 
