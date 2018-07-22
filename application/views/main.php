@@ -134,6 +134,27 @@ $now = date('YmdHis');
                     </select>
                   </div>
 
+                  <div class="form-group">
+                    <label class="control-label">Fakultas</label>
+                    <select class="form-control select2" name="fakultas" id="fakultas">
+                      <option <?php echo $this->input->post('prestasi') != null && $this->input->post('prestasi') == '0' ? 'selected' : null; ?> value="0">Semua</option>
+                      <?php
+                      foreach ($this->db->get('fakultas')->result() as $item) {
+                        ?>
+                        <option <?php echo $this->input->post('fakultas') != null && $this->input->post('fakultas') == $item->id ? 'selected' : null; ?> value="<?php echo $item->id; ?>"><?php echo $item->nama; ?></option>
+                        <?php
+                      }
+                      ?>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label">Prodi</label>
+                    <select class="form-control select2" name="prodi" id="prodi">
+                      <option value="0">Semua</option>
+                    </select>
+                  </div>
+
                   <div class="tile-footer">
                     <button class="btn btn-primary filter" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Filter</button> <input type="submit" style="visibility: hidden;">
                   </div>
@@ -392,6 +413,25 @@ var lineChart = new Chart(ctxl).Line(data, {
    tooltipFillColor: "rgba(0,0,0,0.8)",                
    multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"
 });
+    </script>
+
+    <script type="text/javascript">
+      function ajax_prodi($prodi_id = null) {
+        $.post("<?php echo base_url('welcome/ajax_prodi/'); ?>" + $prodi_id,
+        {
+            fakultas_id: $("#fakultas").val()
+        },
+        function(data, status){
+            $("#prodi").html(data);
+            $(".select2").select2();
+        });  
+      }
+
+      ajax_prodi('<?php echo isset($form['prodi']) && $form['prodi'] != 0 ? $form['prodi'] : null ; ?>');
+
+      $("#fakultas").change(function() {
+        ajax_prodi();
+      });
     </script>
 
   </body>

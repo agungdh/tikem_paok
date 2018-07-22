@@ -62,6 +62,22 @@ class Welcome extends CI_Controller {
 			// $array_where[] = $data['form']['prestasi'];
 		}
 
+		if ($this->input->post('fakultas') != null && $this->input->post('fakultas') != '0') {
+			$data['form']['fakultas'] = $this->input->post('fakultas');
+
+			$where .= ' AND f.id = ? ' ;
+
+			$array_where[] = $data['form']['fakultas'];
+		}
+
+		if ($this->input->post('prodi') != null && $this->input->post('prodi') != '0') {
+			$data['form']['prodi'] = $this->input->post('prodi');
+
+			$where .= ' AND p.id = ? ' ;
+
+			$array_where[] = $data['form']['prodi'];
+		}
+
 		$kegiatan_individu = $this->db->query("SELECT *, i.id individu_id, f.nama fakultas, p.nama prodi, m.nama mahasiswa
 												FROM kegiatan k, individu i, mahasiswa m, prodi p, fakultas f
 												WHERE i.kegiatan_id = k.id
@@ -254,6 +270,23 @@ class Welcome extends CI_Controller {
 			$data['login'] = false;
 
 			echo json_encode($data);
+		}
+	}
+
+	function ajax_prodi($prodi_id = null) {
+		if ($this->input->post('fakultas_id') == 0) {
+			?>
+			<option value="0">Semua</option>
+			<?php
+		} else {
+			?>
+			<option value="0">Semua</option>
+			<?php
+			foreach ($this->db->get_where('prodi', ['fakultas_id' => $this->input->post('fakultas_id')])->result() as $item) {
+				?>
+				<option <?php echo $prodi_id != null && $prodi_id != 0 && $prodi_id == $item->id ? 'selected' : null;  ?> value="<?php echo $item->id; ?>"><?php echo $item->nama; ?></option>
+				<?php
+			}			
 		}
 	}
 
