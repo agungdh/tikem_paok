@@ -1,4 +1,4 @@
-<li><a class="app-menu__item" href="<?php echo base_url(); ?>"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
+<li><a class="app-menu__item" href="<?php echo base_url('dashboard'); ?>"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
 
 <li><a class="app-menu__item" href="<?php echo base_url('kategori'); ?>"><i class="app-menu__icon fa fa-book"></i><span class="app-menu__label">Kategori</span></a></li>
 
