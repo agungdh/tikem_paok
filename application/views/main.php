@@ -1,5 +1,6 @@
 <?php
 // var_dump($tabel);
+// var_dump($form);
 ?>
 
 <?php
@@ -66,20 +67,40 @@ $now = date('YmdHis');
         <div class="row">
           <div class="col-md-6">
             <div class="tile">
-                
+                <form method="post" action="<?php echo base_url(); ?>">
                   <div class="form-group">
                     <label class="control-label">Tanggal</label>
-                    <input class="form-control" type="text" name="filter[tanggal_mulai]" id="daterangepicker">
+                    <input class="form-control" type="text" name="tanggal_mulai" id="daterangepicker" value="<?php echo isset($form['tanggal_mulai']) ? $form['tanggal_mulai'] : null; ?>">
                   </div>
 
                   <div class="form-group">
                     <label class="control-label">Kategori</label>
-                    <select class="form-control select2" name="filter[kategori]">
-                      <option value="0">Semua</option>
+                    <select class="form-control select2" name="kategori">
+                      <?php
+                      if ($this->input->post('kategori') != null) {
+                        if ($this->input->post('kategori') == '0') {
+                          $select = 'selected';
+                        } else {
+                          $select = null;
+                        }
+                      } else {
+                        $select = null;
+                      }
+                      ?>
+                      <option <?php echo $select; ?> value="0">Semua</option>
                       <?php
                       foreach ($this->db->get('kategori')->result() as $item) {
+                        if ($this->input->post('kategori') != null) {
+                          if ($this->input->post('kategori') == $item->id) {
+                            $select = 'selected';
+                          } else {
+                            $select = null;
+                          }
+                        } else {
+                          $select = null;
+                        }
                         ?>
-                        <option value="<?php echo $item->id; ?>"><?php echo $item->kategori; ?></option>
+                        <option <?php echo $select; ?> value="<?php echo $item->id; ?>"><?php echo $item->kategori; ?></option>
                         <?php
                       }
                       ?>
@@ -88,35 +109,68 @@ $now = date('YmdHis');
 
                   <div class="form-group">
                     <label class="control-label">Tingkat</label>
-                    <select class="form-control select2" name="filter[tingkat]">
-                      <option value="0">Semua</option>
-                      <option value="l">Lokal</option>
-                      <option value="n">Nasional</option>
-                      <option value="i">Internasional</option>
+                    <select class="form-control select2" name="tingkat">
+                      <?php
+                      if ($this->input->post('kategori') != null) {
+                        if ($this->input->post('kategori') == '0') {
+                          $select = 'selected';
+                        } else {
+                          $select = null;
+                        }
+                      } else {
+                        $select = null;
+                      }
+                      ?>
+                      <option <?php echo $select; ?> value="0">Semua</option>
+                      <option <?php echo $select; ?> value="l">Lokal</option>
+                      <option <?php echo $select; ?> value="n">Nasional</option>
+                      <option <?php echo $select; ?> value="i">Internasional</option>
                     </select>
                   </div>
 
                   <div class="form-group">
                     <label class="control-label">Keanggotaan</label>
-                    <select class="form-control select2" name="filter[keanggotaan]">
-                      <option value="0">Semua</option>
-                      <option value="t">Tim</option>
-                      <option value="i">Individu</option>
+                    <select class="form-control select2" name="keanggotaan">
+                      <?php
+                      if ($this->input->post('kategori') != null) {
+                        if ($this->input->post('kategori') == '0') {
+                          $select = 'selected';
+                        } else {
+                          $select = null;
+                        }
+                      } else {
+                        $select = null;
+                      }
+                      ?>
+                      <option <?php echo $select; ?> value="0">Semua</option>
+                      <option <?php echo $select; ?> value="t">Tim</option>
+                      <option <?php echo $select; ?> value="i">Individu</option>
                     </select>
                   </div>
 
                   <div class="form-group">
                     <label class="control-label">Prestasi</label>
-                    <select class="form-control select2" name="filter[prestasi]">
-                      <option value="0">Semua</option>
-                      <option value="1">Hanya Berprestasi</option>
+                    <select class="form-control select2" name="prestasi">
+                      <?php
+                      if ($this->input->post('kategori') != null) {
+                        if ($this->input->post('kategori') == '0') {
+                          $select = 'selected';
+                        } else {
+                          $select = null;
+                        }
+                      } else {
+                        $select = null;
+                      }
+                      ?>
+                      <option <?php echo $select; ?> value="0">Semua</option>
+                      <option <?php echo $select; ?> value="1">Hanya Berprestasi</option>
                     </select>
                   </div>
 
                   <div class="tile-footer">
-                    <button class="btn btn-primary simpan" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Filter</button>
-                    &nbsp;&nbsp;&nbsp;
+                    <button class="btn btn-primary filter" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Filter</button> <input type="submit" style="visibility: hidden;">
                   </div>
+                </form>
             </div>
           </div>
 
@@ -226,10 +280,9 @@ $now = date('YmdHis');
     <script type="text/javascript" src="<?php echo base_url('assets/'); ?>daterangepicker/daterangepicker.js"></script>
 
     <script type="text/javascript">
-      // $("#table").dataTable({
-      //   "scrollX": true,
-      //   "autoWidth": false,
-      // });
+      $('.filter').click(function(){
+        $("input[type='submit']").click();
+      });
       
       $(".select2").select2();
     </script>
