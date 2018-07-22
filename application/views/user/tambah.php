@@ -14,10 +14,7 @@
       <div class="tile-body">
         <form method="post" action="<?php echo base_url('user/aksi_tambah'); ?>">
           
-          <div class="form-group">
-            <label class="control-label">Nama</label>
-            <input class="form-control" type="text" required placeholder="Masukan Nama" name="data[nama]">
-          </div>
+          <input type="hidden" name="data[level]" value="1">
 
           <div class="form-group">
             <label class="control-label">Username</label>
@@ -25,16 +22,13 @@
           </div>
 
           <div class="form-group">
-            <label class="control-label">Password</label>
-            <input class="form-control" type="password" required placeholder="Masukan Password" name="data[password]">
+            <label class="control-label">Nama</label>
+            <input class="form-control" type="text" required placeholder="Masukan Nama" name="data[nama]">
           </div>
 
           <div class="form-group">
-            <label class="control-label">Level</label>
-            <select class="form-control select2" required name="data[level]">
-              <option value="1">Administrator</option>
-              <option value="2">Operator</option>
-            </select>
+            <label class="control-label">Password</label>
+            <input class="form-control" type="password" required placeholder="Masukan Password" name="data[password]">
           </div>
 
           </div>

@@ -1,20 +1,18 @@
 <script type="text/javascript">
-$('#simpan_ubah').click(function(){
-  $("#submit_ubah").click();
+$(function() {
+    $(".select2").select2();
 });
 
-$('#simpan_ubah_password').click(function(){
-  $("#submit_ubah_password").click();
+$('#simpan').click(function(){
+  $("input[type='submit']").click();
 });
-
-$('.select2').select2();
 
 $('#form_ubah_password').submit(function() {
-	if ($("#password").val() != $("#password2").val()) {
-		swal("Error !!!", "Password Tidak Sama !!!", "error");
-		return false;
-	} else {
-		$("#form_ubah_password").submit();			
-	}
+    if ($("#pw1").val() != $("#pw2").val()) {
+      swal("Error !!!", "Password Tidak Sama !!!", "error");
+      return false;
+    } else {
+      $("#form_ubah_password").submit();      
+    }
 });
 </script>

@@ -12,33 +12,25 @@
     <div class="tile">
       <h3 class="tile-title">Ubah User</h3>
       <div class="tile-body">
-        <form id="form_ubah" method="post" action="<?php echo base_url('user/aksi_ubah'); ?>">
+        <form method="post" action="<?php echo base_url('user/aksi_ubah'); ?>">
           
           <input type="hidden" name="where[id]" value="<?php echo $data['user']->id; ?>">
 
           <div class="form-group">
-            <label class="control-label">Nama</label>
-            <input class="form-control" required type="text" placeholder="Masukan Nama" name="data[nama]" value="<?php echo $data['user']->nama; ?>">
-          </div>
-
-          <div class="form-group">
             <label class="control-label">Username</label>
-            <input class="form-control" required type="text" placeholder="Masukan Username" name="data[username]" value="<?php echo $data['user']->username; ?>">
+            <input class="form-control" type="text" required placeholder="Masukan Username" name="data[username]" value="<?php echo $data['user']->username; ?>">
           </div>
 
           <div class="form-group">
-            <label class="control-label">Level</label>
-            <select class="form-control select2" required name="data[level]">
-              <option <?php echo $data['user']->level == 1 ? 'selected' : null; ?> value="1">Administrator</option>
-              <option <?php echo $data['user']->level == 2 ? 'selected' : null; ?> value="2">Operator</option>
-            </select>
+            <label class="control-label">Nama</label>
+            <input class="form-control" type="text" required placeholder="Masukan Nama" name="data[nama]" value="<?php echo $data['user']->nama; ?>">
           </div>
 
           </div>
           <div class="tile-footer">
-            <button id="simpan_ubah" class="btn btn-primary" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Simpan</button>
+            <button id="simpan" class="btn btn-primary" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Simpan</button>
             &nbsp;&nbsp;&nbsp;
-            <a class="btn btn-secondary" href="<?php echo base_url('user'); ?>"><i class="fa fa-fw fa-lg fa-times-circle"></i>Batal</a> <input type="submit" id="submit_ubah" style="visibility: hidden;">
+            <a class="btn btn-secondary" href="<?php echo base_url('user'); ?>"><i class="fa fa-fw fa-lg fa-times-circle"></i>Batal</a> <input type="submit" style="visibility: hidden;">
           </div>
         </form>
     </div>
@@ -48,25 +40,25 @@
     <div class="tile">
       <h3 class="tile-title">Ubah Password</h3>
       <div class="tile-body">
-        <form id="form_ubah_password" method="post" action="<?php echo base_url('user/aksi_ubah_password'); ?>">
+        <form method="post" action="<?php echo base_url('user/aksi_ubah_password'); ?>" id="form_ubah_password">
           
           <input type="hidden" name="where[id]" value="<?php echo $data['user']->id; ?>">
 
           <div class="form-group">
             <label class="control-label">Password</label>
-            <input class="form-control" id="password" required type="password" placeholder="Masukan Password" name="data[password]">
+            <input class="form-control" type="password" required placeholder="Masukan Password" name="data[password]" id="pw1">
           </div>
 
           <div class="form-group">
-            <label class="control-label">Ulangi Password</label>
-            <input class="form-control" id="password2" required type="password" placeholder="Ulangi Password">
+            <label class="control-label">Password Lagi</label>
+            <input class="form-control" type="password" required placeholder="Masukan Password Lagi" id="pw2">
           </div>
 
           </div>
           <div class="tile-footer">
-            <button id="simpan_ubah_password" class="btn btn-primary" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Simpan</button>
+            <button id="simpan" class="btn btn-primary" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Simpan</button>
             &nbsp;&nbsp;&nbsp;
-            <a class="btn btn-secondary" href="<?php echo base_url('user'); ?>"><i class="fa fa-fw fa-lg fa-times-circle"></i>Batal</a> <input type="submit" id="submit_ubah_password" style="visibility: hidden;">
+            <a class="btn btn-secondary" href="<?php echo base_url('user'); ?>"><i class="fa fa-fw fa-lg fa-times-circle"></i>Batal</a> <input type="submit" style="visibility: hidden;">
           </div>
         </form>
     </div>
