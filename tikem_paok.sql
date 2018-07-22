@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 22, 2018 at 10:49 AM
+-- Generation Time: Jul 22, 2018 at 02:18 PM
 -- Server version: 10.1.29-MariaDB-6
 -- PHP Version: 5.6.36
 
@@ -396,7 +396,7 @@ ALTER TABLE `tim`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
