@@ -27,7 +27,7 @@ $now = date('YmdHis');
               <th>Foto</th>
               <th>Prodi</th>
               <th>Fakultas</th>
-              <th>Juara</th>
+              <th>Prestasi</th>
               <th>Bukti</th>
               <th>Proses</th>
             </tr>
